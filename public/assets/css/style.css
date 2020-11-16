@@ -1,0 +1,227 @@
+/* ---- reset ---- */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+    vertical-align: baseline;
+    font-family: 'Montserrat', sans-serif;
+    outline: 0;
+}
+a{
+    text-decoration: none;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: flex;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+canvas {
+  display: flex;
+  vertical-align: bottom;
+}
+/* ---- particles.js container ---- */
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  z-index: -1;
+}
+.text-center {
+    text-align: center;
+}
+.wrap {
+    width: 400px;
+    margin: auto;
+    background-color: #fff;
+    padding: 45px 15px;
+    border-radius: 25px;
+}
+.top-gutter {
+    padding-top: 60px;
+}
+.heading {
+    text-align: center;
+    font-size: 2rem;
+    padding-bottom: 45px;
+    /*color: rgb(1, 27, 65);*/
+    background: -webkit-linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sub-heading {
+    text-align: center;
+    padding-bottom: 45px;
+    color: rgb(114, 114, 114);
+}
+.help-text {
+    text-align: center;
+    padding-bottom: 15px;
+    color: rgb(114, 114, 114);
+}
+.form-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.form-group input {
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    height: 42px;
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-family: 'Montserrat', sans-serif;
+}
+.btn {
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    border-radius: 50px;
+    cursor: pointer;
+    height: 42px;
+    line-height: 42px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+.btn:focus {
+    outline: none;
+}
+
+.btn.btn-primary {
+    background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+    box-shadow: 0 4px 15px 0 rgba(252, 104, 110, 0.75);
+    color: #fff;
+    background-size: 300% 100%;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    margin: auto
+}
+.btn.btn-primary:hover {
+    background-position: 100% 0;
+    box-shadow: 0 4px 15px 0 rgba(150, 220, 233, 0.75);
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+.btn.btn-primary.active {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 0;
+    border: 2px solid #25aae1;
+    border-left-color: transparent;
+    background: none;
+    box-shadow: none;
+    animation: rotate 1.5s ease 0.5s infinite;
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(360deg);
+    }
+}
+
+.form-error {
+    color: rgb(146, 24, 24);
+    font-size: 14px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.forgot-switch {
+    justify-content: center;
+    margin: 30px auto;
+    display: flex;
+    color: rgb(13, 87, 184);
+}
+
+.seperator {
+    width: 100%;
+    height: 1px;
+    margin: 30px 0;
+    background-color: #ddd;;
+}
+
+.btn-info {
+    background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+    box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+    color: #fff;
+    background-size: 300% 100%;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+.btn.btn-info:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.error {
+    color: rgb(146, 24, 24);
+    font-size: 14px;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 480px) {
+    .wrap {
+        width: 100%;
+    }
+    .top-gutter {
+        padding-top: 100px;
+    }
+}

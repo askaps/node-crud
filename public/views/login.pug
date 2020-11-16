@@ -1,0 +1,128 @@
+doctype html 
+html
+    head
+        title=title
+        meta(name='viewport' content='width=device-width, initial-scale=1')
+        link(rel='preconnect', href='https://fonts.gstatic.com')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap')
+        link(rel='stylesheet', href=baseUrl+'assets/css/style.css')
+    body
+        div#particles-js
+
+        div.top-gutter
+        .wrap
+            
+            div#login-box.account-box
+                h2.heading Login
+                p.sub-heading Welcome back! Login to access your Account.
+
+                form#login-form(method='POST' action=baseUrl+'api/v1/users/login')
+                    div.form-group
+                        input#email.form-control(type='text' name='email' placeholder='Email address or Mobile number')
+                    div.form-group
+                        input#password.form-control(type='password' name='password' placeholder='Password')
+                    button.btn.btn-primary(type='submit') Log In
+                    div.form-error 
+
+                div.controls
+                    a(class='btn-account-switch forgot-switch' data-type='forgot-box' data-from='login-box' href='#') Forgotten Password?
+
+                    div.seperator
+
+                    a(class='btn btn-info btn-account-switch' data-type='signup-box' data-from='login-box' href='#') Create New Account
+
+            div#signup-box.account-box.hidden
+                h2.heading Create Account
+                p.sub-heading Welcome. More Business Ahead!
+
+                form#signup-form(method='POST' action=baseUrl+'api/v1/users')
+                    div.form-group
+                        input.form-control(type='text' name='name' placeholder='Your name')
+                    div.form-group
+                        input.form-control(type='email' name='email' placeholder='Email address')
+                    div.form-group
+                        input.form-control(type='text' name='mobile' placeholder='10 digit mobile number')
+                    div.form-group
+                        input.form-control(type='password' name='password' placeholder='Password')
+                    button.btn.btn-primary(type='submit') Sign up
+                    div.form-error 
+
+                div.controls
+                    div.seperator
+
+                    div.help-text Already have an account!
+                    a(class='btn btn-info btn-account-switch' data-type='login-box' data-from='signup-box' href='#') Log In
+
+            div#forgot-box.account-box.hidden
+                h2.heading Forgot Your Password?
+                p.sub-heading Enter your email to reset your password
+
+                form#forgot-form(method='PATCH' action=baseUrl+'api/v1/users/forgotPasswordToken')
+                    div.form-group
+                        input.form-control(type='email' name='email' placeholder='Email address')
+                    button.btn.btn-primary(type='submit') Reset Rassword
+                    div.form-error 
+
+                div.controls
+                    div.seperator
+                    a(class='btn btn-info btn-account-switch' data-type='login-box' data-from='forgot-box' href='#') Log In
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+    script(src='http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js')
+    script.
+        $(document).ready(function(){
+            particlesJS("particles-js", {"particles":{"number":{"value":4,"density":{"enable":false,"value_area":800}},"color":{"value":["#1B1E34","#ce7dc9","#6ad6fa","#09f"]},"shape":{"type":"circle","stroke":{"width":0,"color":"#000000"},"polygon":{"nb_sides":12},"image":{"src":"img/github.svg","width":100,"height":100}},"opacity":{"value":0.3,"random":false,"anim":{"enable":false,"speed":1,"opacity_min":0.1,"sync":false}},"size":{"value":160,"random":false,"anim":{"enable":true,"speed":40,"size_min":0.1,"sync":false}},"line_linked":{"enable":false,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":6,"direction":"none","random":false,"straight":false,"out_mode":"out","bounce":false,"attract":{"enable":false,"rotateX":600,"rotateY":1200}}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":false,"mode":"push"},"resize":true},"modes":{"grab":{"distance":400,"line_linked":{"opacity":1}},"bubble":{"distance":400,"size":40,"duration":2,"opacity":8,"speed":3},"repulse":{"distance":200,"duration":0.4},"push":{"particles_nb":4},"remove":{"particles_nb":2}}},"retina_detect":true});
+
+            $("form").on('submit', function(e) {
+                e.preventDefault();
+                $('.error').remove();
+                
+                const form = $(this);
+                form.find('.form-error').html('');
+                const submitBtn = form.find('.btn.btn-primary');
+                submitBtn.addClass('active').attr("disabled", "disabled");
+                
+                $.ajax({
+                    type: form.attr("method"),
+                    url: form.attr("action"),
+                    data: form.serializeArray(),
+                    success: (response) => {
+                        submitBtn.removeClass('active').removeAttr("disabled");
+                        if (response.status){
+                            form[0].reset();
+                            form.remove();
+                            $('.controls').remove();
+                            $('.sub-heading').remove();
+
+                            if (typeof response.data === 'string') {
+                                $('.heading').html(response.data);
+                            } else {
+                                $('.heading').html(`Hello ${response.data.name}!`);
+                            }
+                        }
+                    },
+                    error: (response) => {
+                        submitBtn.removeClass('active').removeAttr("disabled");
+                        const responseData = response.responseJSON.data;
+                        if (responseData.hasOwnProperty('errors')) {
+                            responseData.errors.forEach(error => {
+                                if ( form.find(`input[name='${error.param}']`).prev().hasClass('input-group-addon')) {
+                                    form.find(`input[name='${error.param}']`).parent().after(`<div class='error'>${error.msg}</div>`);
+                                } else {
+                                    form.find(`input[name='${error.param}']`).after(`<div class='error'>${error.msg}</div>`);
+                                }
+                            });
+                        } else {
+                            form.find('.form-error').html(responseData);
+                        }
+                    }
+                });
+            });
+
+            $('.btn-account-switch').on('click', function(e){
+                e.preventDefault();
+                const switchType = $(this).data('type');
+                const switchFrom = $(this).data('from');
+                $(`#${switchFrom}`).fadeOut(function(){ $(`#${switchType}`).fadeIn(); });     
+            });
+        });
